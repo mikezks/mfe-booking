@@ -1,0 +1,69 @@
+<ng-container *ngrxLet="bookingList$ as bookings">
+
+  <div class="card">
+
+    <div class="card-header">
+      <h2 class="card-title">Booking Search</h2>
+    </div>
+    <div class="card-body">
+
+      <form>
+        <div class="form-group">
+          <button (click)="load()"
+            class="btn btn-default">
+            Search
+          </button>
+
+          <div *ngIf="bookings">
+            {{ bookings.length }} bookings found!
+          </div>
+
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <div class="card">
+
+    <table class="table table-condensed" *ngIf="bookings.length">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Passenger</th>
+                <th>Flight</th>
+                <th>Date</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr
+              *ngFor="let b of bookings"
+              [class.table-active]="b === selectedBooking">
+              <td><span class="badge badge-pill badge-info">
+                {{ b.id }}
+              </span></td>
+              <td>{{ b.passengerName }}</td>
+              <td>{{ b.flightName }}</td>
+              <td>{{ b.date }}</td>
+              <td>
+                <button
+                  (click)="toggleSelection(b)"
+                  class="btn btn-info btn-sm"
+                  style="min-width: 85px">
+                  {{ b === selectedBooking ? 'Remove' : 'Select' }}
+                </button>
+                <a
+                  [routerLink]="['../edit', b.id]"
+                  class="btn btn-success btn-sm"
+                  style="min-width: 85px">
+                  Edit
+                </a>
+              </td>
+            </tr>
+        <tbody>
+    </table>
+
+  </div>
+
+</ng-container>
