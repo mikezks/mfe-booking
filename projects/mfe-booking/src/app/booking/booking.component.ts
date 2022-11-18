@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, VERSION } from '@angular/core';
 
 @Component({
   selector: 'booking',
@@ -6,4 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./booking.component.css']
 })
 export class BookingComponent {
+  ngVersion = VERSION.full;
 }
