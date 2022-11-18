@@ -18,7 +18,7 @@
 			"prefix": "app",
 			"architect": {
 				"build": {
-					"builder": "@angular-devkit/build-angular:browser",
+					"builder": "ngx-build-plus:browser",
 					"options": {
 						"outputPath": "dist/mfe-booking",
 						"index": "projects/mfe-booking/src/index.html",
@@ -35,7 +35,9 @@
 							"node_modules/@angular-architects/paper-design/assets/scss/paper-dashboard.scss",
 							"projects/mfe-booking/src/styles.scss"
 						],
-						"scripts": []
+						"scripts": [],
+						"extraWebpackConfig": "projects/mfe-booking/webpack.config.js",
+						"commonChunk": false
 					},
 					"configurations": {
 						"production": {
@@ -57,7 +59,8 @@
 									"with": "projects/mfe-booking/src/environments/environment.prod.ts"
 								}
 							],
-							"outputHashing": "all"
+							"outputHashing": "all",
+							"extraWebpackConfig": "projects/mfe-booking/webpack.prod.config.js"
 						},
 						"development": {
 							"buildOptimizer": false,
@@ -71,13 +74,16 @@
 					"defaultConfiguration": "production"
 				},
 				"serve": {
-					"builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "port": 4400
-          },
+					"builder": "ngx-build-plus:dev-server",
+					"options": {
+						"port": 4400,
+						"publicHost": "http://localhost:4400",
+						"extraWebpackConfig": "projects/mfe-booking/webpack.config.js"
+					},
 					"configurations": {
 						"production": {
-							"browserTarget": "mfe-booking:build:production"
+							"browserTarget": "mfe-booking:build:production",
+							"extraWebpackConfig": "projects/mfe-booking/webpack.prod.config.js"
 						},
 						"development": {
 							"browserTarget": "mfe-booking:build:development"
@@ -86,9 +92,10 @@
 					"defaultConfiguration": "development"
 				},
 				"extract-i18n": {
-					"builder": "@angular-devkit/build-angular:extract-i18n",
+					"builder": "ngx-build-plus:extract-i18n",
 					"options": {
-						"browserTarget": "mfe-booking:build"
+						"browserTarget": "mfe-booking:build",
+						"extraWebpackConfig": "projects/mfe-booking/webpack.config.js"
 					}
 				},
 				"test": {
